@@ -22,5 +22,15 @@ internal class MineSweeperAppTest : WordSpec({
 
             result.shouldBeEmpty()
         }
+
+        "return empty string given only end of input" {
+            every {
+                mineSweeperNotationParser.parse("0 0")
+            } returns emptyList()
+
+            val result = MineSweeperApp(mineSweeperNotationParser).solve("")
+
+            result.shouldBeEmpty()
+        }
     }
 })
