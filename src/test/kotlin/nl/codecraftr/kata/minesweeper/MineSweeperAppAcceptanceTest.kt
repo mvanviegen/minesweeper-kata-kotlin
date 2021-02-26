@@ -4,34 +4,40 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 
 internal class MineSweeperAppAcceptanceTest : BehaviorSpec({
+    lateinit var mineSweeperApp: MineSweeperApp
+    beforeTest {
+        val mineSweeperInputParser = MineSweeperNotationParser()
+
+        mineSweeperApp = MineSweeperApp(mineSweeperInputParser)
+    }
+
     given("an empty minefield") {
+        val input = ""
+
         `when`("it is solved") {
+            val result = mineSweeperApp.solve(input)
+
             then("it should return zero solved minefields") {
-                val input = ""
-
-                val result = MineSweeperApp().solve(input)
-
                 result shouldBe ""
             }
         }
     }
 
     given("end of input") {
+        val input = "0 0"
+
         `when`("it is solved") {
+            val result = mineSweeperApp.solve(input)
+
             then("it should return zero solved minefields") {
-                val input = "0 0"
-
-                val result = MineSweeperApp().solve(input)
-
                 result shouldBe ""
             }
         }
     }
 
     given("a single minefield") {
-        `when`("it is solved") {
-            then("it should return the solved minefield") {
-                val input = """
+
+        val input = """
                     4 4
                     *...
                     ....
@@ -40,7 +46,7 @@ internal class MineSweeperAppAcceptanceTest : BehaviorSpec({
                     0 0
                 """.trimIndent()
 
-                val expected = """
+        val expected = """
                     Field #1:
                     *100
                     2210
@@ -48,7 +54,11 @@ internal class MineSweeperAppAcceptanceTest : BehaviorSpec({
                     1110 
                 """.trimIndent()
 
-                val result = MineSweeperApp().solve(input)
+        `when`("it is solved") {
+
+            val result = mineSweeperApp.solve(input)
+
+            then("it should return the solved minefield") {
 
                 result shouldBe expected
             }

@@ -1,11 +1,14 @@
 package nl.codecraftr.kata.minesweeper
 
-class MineSweeperApp {
+class MineSweeperApp(mineSweeperNotationParser: MineSweeperNotationParser) {
     fun solve(minefields: String) = ""
 }
 
-fun main() = MineSweeperApp().solve(
-    """
+fun main() {
+    val mineSweeperInputParser = MineSweeperNotationParser()
+
+    MineSweeperApp(mineSweeperInputParser).solve(
+        """
    4 4
    *...
    ....
@@ -17,4 +20,5 @@ fun main() = MineSweeperApp().solve(
    .*...
    0 0
 """.trimIndent()
-).run(::print)
+    ).run(::print)
+}
