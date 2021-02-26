@@ -6,9 +6,10 @@ import io.kotest.matchers.shouldBe
 internal class MineSweeperAppAcceptanceTest : BehaviorSpec({
     lateinit var mineSweeperApp: MineSweeperApp
     beforeTest {
-        val mineSweeperInputParser = MineSweeperNotationParser()
+        val mineSweeperNotationParser = MineSweeperNotationParser()
+        val mineSweeperOutputParser = MineSweeperOutputParser()
 
-        mineSweeperApp = MineSweeperApp(mineSweeperInputParser)
+        mineSweeperApp = MineSweeperApp(mineSweeperNotationParser, mineSweeperOutputParser)
     }
 
     given("an empty minefield") {

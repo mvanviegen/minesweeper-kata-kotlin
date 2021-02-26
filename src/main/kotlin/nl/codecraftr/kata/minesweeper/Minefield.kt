@@ -1,5 +1,9 @@
 package nl.codecraftr.kata.minesweeper
 
-class Minefield {
-
+data class Minefield(
+    private val rows: List<MinefieldRow>
+) {
+    fun solve(): Minefield {
+        return this
+    }
 }

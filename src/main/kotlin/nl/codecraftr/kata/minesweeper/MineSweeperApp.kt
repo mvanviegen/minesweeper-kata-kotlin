@@ -1,13 +1,21 @@
 package nl.codecraftr.kata.minesweeper
 
-class MineSweeperApp(mineSweeperNotationParser: MineSweeperNotationParser) {
-    fun solve(minefields: String) = ""
+class MineSweeperApp(
+    private val mineSweeperNotationParser: MineSweeperNotationParser,
+    private val mineSweeperOutputParser: MineSweeperOutputParser
+) {
+    fun solve(minefields: String) =
+        minefields
+            .let(mineSweeperNotationParser::parse)
+            .map(Minefield::solve)
+            .let(mineSweeperOutputParser::parse)
 }
 
 fun main() {
-    val mineSweeperInputParser = MineSweeperNotationParser()
+    val mineSweeperNotationParser = MineSweeperNotationParser()
+    val mineSweeperOutputParser = MineSweeperOutputParser()
 
-    MineSweeperApp(mineSweeperInputParser).solve(
+    MineSweeperApp(mineSweeperNotationParser, mineSweeperOutputParser).solve(
         """
    4 4
    *...
