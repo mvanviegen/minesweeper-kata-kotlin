@@ -13,7 +13,7 @@ internal class MinefieldOutputParserTest : WordSpec({
 
     beforeTest {
         rowParser = mockk()
-        parser = MinefieldOutputParser()
+        parser = MinefieldOutputParser(rowParser)
     }
 
     "parse" should {
@@ -43,13 +43,16 @@ internal class MinefieldOutputParserTest : WordSpec({
         }
 
         "return a string representation given a row with multiple squares" {
+            val row = aRow()
+                .withSquare("0")
+                .withSquare("1")
             val field = aMinefield()
                 .withRows(
-                    aRow()
-                        .withSquare("0")
-                        .withSquare("1")
+                    row
                 )
                 .build()
+
+            every { rowParser.parse(row.build()) } returns "01"
 
             val expected = """
                 01

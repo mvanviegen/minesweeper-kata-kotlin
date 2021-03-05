@@ -1,9 +1,9 @@
 package nl.codecraftr.kata.minesweeper
 
-class MinefieldOutputParser {
+class MinefieldOutputParser internal constructor(private val rowParser: MinefieldRowOutputParser) {
+    constructor() : this(MinefieldRowOutputParser())
     fun parse(field: Minefield) =
-        field.rows.joinToString("\n", transform = ::parseRow)
-
-    private fun parseRow(row: MinefieldRow) =
-        row.squares.map(Square::value).joinToString(separator = "")
+        field.rows
+            .map(rowParser::parse)
+            .joinToString("\n")
 }
