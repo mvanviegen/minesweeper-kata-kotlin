@@ -14,7 +14,7 @@ class MineSweeperOutputParserTest : WordSpec({
 
             result.shouldBeBlank()
         }
-        "return a string representation given solved minefields" {
+        "return a string representation given a solved minefield" {
             val solvedFields = aMineSweeper()
                 .withMineField(
                     aMinefield()
@@ -26,12 +26,42 @@ class MineSweeperOutputParserTest : WordSpec({
                 )
                 .build()
 
-//            Minefield(listOf(MinefieldRow(listOf(Square("0")))))
-
             val expected = """
                     Field #1:
                     0
                 """.trimIndent()
+
+            val result = MineSweeperOutputParser().parse(solvedFields)
+
+            result shouldBe expected
+        }
+
+        "return a string representation given multiple solved minefields" {
+            val solvedFields =
+                aMineSweeper()
+                    .withMineField(
+                        aMinefield()
+                            .withRow(
+                                aRow()
+                                    .withSquare("0")
+                            )
+                    )
+                    .withMineField(
+                        aMinefield()
+                            .withRow(
+                                aRow()
+                                    .withSquare("0")
+                            )
+                    )
+                    .build()
+
+            val expected = """
+                Field #1:
+                0
+                
+                Field #2:
+                0
+            """.trimIndent()
 
             val result = MineSweeperOutputParser().parse(solvedFields)
 
