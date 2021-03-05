@@ -11,6 +11,10 @@ class MinefieldTestBuilder {
         rows = rows + builder.build()
         return this
     }
+    fun withRows(vararg builder: MinefieldRowTestBuilder): MinefieldTestBuilder {
+        rows = rows + builder.map(MinefieldRowTestBuilder::build)
+        return this
+    }
 
     fun build() = Minefield(rows)
 }
