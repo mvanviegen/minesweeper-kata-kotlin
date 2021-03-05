@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe
 
 internal class MineSweeperNotationParserTest : WordSpec({
+
     "parse" should {
         "return empty list given no input" {
             val result = MineSweeperNotationParser().parse("")
