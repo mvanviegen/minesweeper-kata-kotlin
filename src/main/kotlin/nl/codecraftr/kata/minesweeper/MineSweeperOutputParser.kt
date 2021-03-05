@@ -3,14 +3,18 @@ package nl.codecraftr.kata.minesweeper
 class MineSweeperOutputParser internal constructor(private val fieldParser: MinefieldOutputParser) {
     constructor() : this(MinefieldOutputParser())
 
-    fun parse(minefields: List<Minefield>): String {
-        return minefields.mapIndexed { idx, field ->
-            header(idx) + "\n" + fieldParser.parse(field)
-        }.joinToString(separator = "\n\n")
+    fun parse(minefields: List<Minefield>) =
+        minefields
+            .map(fieldParser::parse)
+            .mapIndexed {  idx, fieldContents -> FieldOutput(idx + 1, fieldContents) }
+            .map(FieldOutput::present)
+            .joinToString(separator = "\n\n")
+}
+
+private class FieldOutput(private val fieldNumber: Int, private val fieldContents: String) {
+    fun present(): String {
+        return header(fieldNumber) + "\n" + fieldContents
     }
 
-    private fun header(index: Int): String {
-        val fieldNumber = index + 1
-        return "Field #$fieldNumber:"
-    }
+    private fun header(fieldNumber: Int) = "Field #$fieldNumber:"
 }
