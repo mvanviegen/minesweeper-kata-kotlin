@@ -1,11 +1,11 @@
 package nl.codecraftr.kata.minesweeper
 
-class MineSweeperOutputParser internal constructor(fieldParser: MinefieldOutputParser) {
+class MineSweeperOutputParser internal constructor(private val fieldParser: MinefieldOutputParser) {
     constructor() : this(MinefieldOutputParser())
 
     fun parse(minefields: List<Minefield>): String {
         return minefields.mapIndexed { idx, field ->
-            header(idx) + "\n" + field.rows.map { it.squares.first().value }.joinToString("\n")
+            header(idx) + "\n" + fieldParser.parse(field)
         }.joinToString(separator = "\n\n")
     }
 

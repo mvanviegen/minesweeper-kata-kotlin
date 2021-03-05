@@ -25,58 +25,26 @@ class MineSweeperOutputParserTest : WordSpec({
             result.shouldBeBlank()
         }
 
-        "return a string representation given a solved minefield with multiple rows" {
+        "return a string representation given multiple solved minefields" {
             val field =
                 aMinefield()
-                    .withRows(
-                        aRow()
-                            .withSquare("0"),
-                        aRow()
-                            .withSquare("0"),
-                        aRow()
-                            .withSquare("0"),
+                    .withRow(
                         aRow()
                             .withSquare("0")
-                    ).build()
-
-            every { fieldParser.parse(field) } returns """
-                0
-                0
-                0
-                0
-            """.trimIndent()
-
-            val expected = """
-                    Field #1:
-                    0
-                    0
-                    0
-                    0
-                """.trimIndent()
-
-            val result = parser.parse(listOf(field))
-
-            result shouldBe expected
-        }
-
-        "return a string representation given multiple solved minefields" {
+                    )
             val solvedFields =
                 aMineSweeper()
                     .withMineField(
-                        aMinefield()
-                            .withRow(
-                                aRow()
-                                    .withSquare("0")
-                            )
+                        field
                     )
                     .withMineField(
-                        aMinefield()
-                            .withRow(
-                                aRow()
-                                    .withSquare("0")
-                            )
+                        field
                     )
                     .build()
+
+            every { fieldParser.parse(field.build()) } returns """
+                0
+                """.trimIndent()
 
             val expected = """
                 Field #1:
