@@ -3,6 +3,9 @@ package nl.codecraftr.kata.minesweeper
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeBlank
+import nl.codecraftr.kata.minesweeper.MineSweeperTestBuilder.Companion.aMineSweeper
+import nl.codecraftr.kata.minesweeper.MinefieldRowTestBuilder.Companion.aRow
+import nl.codecraftr.kata.minesweeper.MinefieldTestBuilder.Companion.aMinefield
 
 class MineSweeperOutputParserTest : WordSpec({
     "parse" should {
@@ -12,7 +15,18 @@ class MineSweeperOutputParserTest : WordSpec({
             result.shouldBeBlank()
         }
         "return a string representation given solved minefields" {
-            val solvedFields = listOf(Minefield(listOf(MinefieldRow(listOf(Square("0"))))))
+            val solvedFields = aMineSweeper()
+                .withMineField(
+                    aMinefield()
+                        .withRow(
+                            aRow()
+                                .withSquare("0")
+                        )
+
+                )
+                .build()
+
+//            Minefield(listOf(MinefieldRow(listOf(Square("0")))))
 
             val expected = """
                     Field #1:

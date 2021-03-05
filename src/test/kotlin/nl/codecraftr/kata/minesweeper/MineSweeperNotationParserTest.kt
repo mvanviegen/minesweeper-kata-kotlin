@@ -11,6 +11,12 @@ internal class MineSweeperNotationParserTest : WordSpec({
             result shouldBe emptyList()
         }
 
+        "return empty list given end of file input" {
+            val result = MineSweeperNotationParser().parse("0 0")
+
+            result shouldBe emptyList()
+        }
+
         "return a minefield given a valid input" {
             val notation = """
                 1 1

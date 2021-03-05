@@ -38,14 +38,20 @@ internal class MineSweeperAppAcceptanceTest : BehaviorSpec({
 
     given("a single minefield") {
         val input = """
-                    1 1
-                    .
+                    4 4
+                    ....
+                    ....
+                    ....
+                    ....
                     0 0
                 """.trimIndent()
 
         val expected = """
                     Field #1:
-                    0
+                    0000
+                    0000
+                    0000
+                    0000
                 """.trimIndent()
 
         `when`("it is solved") {
