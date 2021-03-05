@@ -8,9 +8,15 @@ import nl.codecraftr.kata.minesweeper.MinefieldRowTestBuilder.Companion.aRow
 import nl.codecraftr.kata.minesweeper.MinefieldTestBuilder.Companion.aMinefield
 
 class MineSweeperOutputParserTest : WordSpec({
+    lateinit var parser: MineSweeperOutputParser
+
+    beforeTest {
+        parser = MineSweeperOutputParser()
+    }
+
     "parse" should {
         "return empty string given no minefields" {
-            val result = MineSweeperOutputParser().parse(emptyList())
+            val result = parser.parse(emptyList())
 
             result.shouldBeBlank()
         }
@@ -31,7 +37,7 @@ class MineSweeperOutputParserTest : WordSpec({
                     0
                 """.trimIndent()
 
-            val result = MineSweeperOutputParser().parse(solvedFields)
+            val result = parser.parse(solvedFields)
 
             result shouldBe expected
         }
@@ -63,7 +69,7 @@ class MineSweeperOutputParserTest : WordSpec({
                 0
             """.trimIndent()
 
-            val result = MineSweeperOutputParser().parse(solvedFields)
+            val result = parser.parse(solvedFields)
 
             result shouldBe expected
         }
